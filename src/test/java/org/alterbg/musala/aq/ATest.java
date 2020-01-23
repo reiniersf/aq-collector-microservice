@@ -9,7 +9,7 @@ public class ATest {
 
   @Test
   void should(){
-    Logger logger = LoggerFactory.getLogger(Main.class);
+    Logger logger = LoggerFactory.getLogger(AQCollectorApplication.class);
     logger.debug("Dummy test!");
     Assertions.assertThat(true).isEqualTo(true);
   }
