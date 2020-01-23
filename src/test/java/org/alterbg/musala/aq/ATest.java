@@ -6,11 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ATest {
+  Logger testLogger = LoggerFactory.getLogger("Test");
+
 
   @Test
   void should(){
-    Logger logger = LoggerFactory.getLogger(AQCollectorApplication.class);
-    logger.debug("Dummy test!");
+    testLogger.debug("Dummy test!");
     Assertions.assertThat(true).isEqualTo(true);
   }
 }
