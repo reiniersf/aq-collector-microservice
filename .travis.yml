@@ -1,7 +1,5 @@
 language: java
 sudo: false
-env:
-  - CODECOV_TOKEN="958cd85a-61da-40d9-a4b3-e31261433873"
 
 jdk:
   - openjdk11
