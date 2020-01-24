@@ -21,7 +21,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 @EmbeddedKafka(topics = {"AQ"}, ports = 9092)
 public class PublisherTest {
 
-  private Logger testLogger = LoggerFactory.getLogger("Test");
+  private static final Logger TEST_LOGGER = LoggerFactory.getLogger("Test");
 
   @Autowired
   private EmbeddedKafkaBroker embeddedKafkaBroker;
@@ -41,8 +41,7 @@ public class PublisherTest {
   @Test
   @DisplayName("Publisher sending the message")
   void shouldPublishAMessage() {
-    template.send("AQ", new AQLog(new GLocation(-23.8351, 151.254), MeasureUnit.µgm3, Particle.co, 13));
-//    publisher.pushNewAQLog();
+    publisher.pushNewAQLog(new AQLog(new GLocation(-23.8351, 151.254), MeasureUnit.µgm3, Particle.co, 13));
   }
 
 }

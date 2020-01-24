@@ -14,10 +14,6 @@ public class AQLog {
     this.value = value;
   }
 
-  public AQLog() {
-
-  }
-
   public GLocation getLocation() {
     return location;
   }

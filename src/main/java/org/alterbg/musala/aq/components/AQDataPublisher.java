@@ -19,7 +19,4 @@ public class AQDataPublisher {
   public void pushNewAQLog(AQLog aqLog) {
     kafkaTemplate.send("AQ", aqLog);
   }
-  public void pushNewAQLog(GLocation location) {
-//    kafkaTemplate.send("AQ", location);
-  }
 }
