@@ -7,13 +7,9 @@ import java.util.Objects;
 
 public class AQLog {
 
-  @JsonProperty
   private GLocation location;
-  @JsonProperty
   private MeasureUnit unit;
-  @JsonProperty
   private Particle particle;
-  @JsonProperty
   private double value;
 
   @JsonCreator(mode = Mode.PROPERTIES)
@@ -42,18 +38,12 @@ public class AQLog {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    AQLog aqLog = (AQLog) o;
-    return Double.compare(aqLog.value, value) == 0 &&
-        Objects.equals(location, aqLog.location) &&
-        unit == aqLog.unit &&
-        particle == aqLog.particle;
+  public boolean equals(Object aqLog) {
+    return (aqLog instanceof AQLog)
+        && Double.compare(((AQLog)aqLog).value, value) == 0
+        && Objects.equals(location, ((AQLog)aqLog).location)
+        && unit == ((AQLog)aqLog).unit
+        && particle == ((AQLog)aqLog).particle;
   }
 
   @Override

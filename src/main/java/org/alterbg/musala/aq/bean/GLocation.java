@@ -26,16 +26,10 @@ public class GLocation {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    GLocation gLocation = (GLocation) o;
-    return Double.compare(gLocation.latitude, latitude) == 0 &&
-        Double.compare(gLocation.longitude, longitude) == 0;
+  public boolean equals(Object gLocation) {
+    return (gLocation instanceof GLocation)
+        && Double.compare(((GLocation) gLocation).latitude, latitude) == 0
+        && Double.compare(((GLocation) gLocation).longitude, longitude) == 0;
   }
 
   @Override
