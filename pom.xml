@@ -146,8 +146,8 @@
         </executions>
         <configuration>
           <excludes>
-            <exclude>org.alterbg.musala.aq.config/*</exclude>
-            <exclude>org.alterbg.musala.aq.AQCollectorApplication</exclude>
+            <exclude>org/alterbg/musala/aq/config/*</exclude>
+            <exclude>org/alterbg/musala/aq/AQCollectorApplication</exclude>
           </excludes>
         </configuration>
       </plugin>
