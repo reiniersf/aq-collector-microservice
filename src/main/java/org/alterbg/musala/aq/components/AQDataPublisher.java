@@ -1,7 +1,6 @@
 package org.alterbg.musala.aq.components;
 
 import org.alterbg.musala.aq.bean.AQLog;
-import org.alterbg.musala.aq.bean.GLocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
