@@ -5,17 +5,12 @@ import java.util.Map;
 import okhttp3.OkHttpClient.Builder;
 import org.alterbg.musala.aq.bean.AQLog;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.IntegerSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.web.client.RestTemplate;
 
 public class BeansConfig {
@@ -34,7 +29,7 @@ public class BeansConfig {
   @Bean
   private KafkaTemplate<Integer, AQLog> createTemplate(Map<String, Object> senderProps) {
     ProducerFactory<Integer, AQLog> pf =
-        new DefaultKafkaProducerFactory<>(senderProps());
+        new DefaultKafkaProducerFactory<>(senderProps);
     return new KafkaTemplate<>(pf);
   }
 
@@ -48,9 +43,4 @@ public class BeansConfig {
     return props;
   }
 
-  @Bean
-  @Qualifier("testLogger")
-  public Logger testLogger() {
-    return LoggerFactory.getLogger("Test");
-  }
 }
