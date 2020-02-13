@@ -24,9 +24,11 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 @SpringBootTest(classes = {AQCollectorApplication.class})
-@EmbeddedKafka(topics = {PublisherTest.TEST_TOPIC}, ports = 9092)
+@EmbeddedKafka(topics = {PublisherTest.TEST_TOPIC}, ports = 9093)
 public class PublisherTest {
 
   private static final Logger TEST_LOGGER = LoggerFactory.getLogger("Test");
