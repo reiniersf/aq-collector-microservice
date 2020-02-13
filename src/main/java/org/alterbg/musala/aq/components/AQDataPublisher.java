@@ -13,9 +13,10 @@ public class AQDataPublisher {
   @Autowired
   public AQDataPublisher(KafkaTemplate<Integer, AQLog> kafkaTemplate) {
     this.kafkaTemplate = kafkaTemplate;
+    this.kafkaTemplate.setDefaultTopic("AQ");
   }
 
   public void pushNewAQLog(AQLog aqLog) {
-    kafkaTemplate.send("AQ", aqLog);
+    kafkaTemplate.sendDefault(aqLog);
   }
 }
