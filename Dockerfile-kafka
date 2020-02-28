@@ -1,0 +1,10 @@
+FROM azul/zulu-openjdk-alpine:11.0.6
+RUN apk add --no-cache bash
+WORKDIR /opt
+RUN mkdir kafka brokers && wget -qO- "http://apache.mirror.anlx.net/kafka/2.4.0/kafka_2.12-2.4.0.tgz" | tar xz -C kafka --strip-components=1
+RUN chmod +x kafka/bin/*.sh
+ENV PATH=/opt/kafka/bin:$PATH
+COPY init/kafka-init.sh .
+COPY init/*.properties brokers/
+RUN chmod +x kafka-init.sh
+CMD ["/opt/kafka-init.sh"]

@@ -1,0 +1,48 @@
+version: '3'
+services:
+  zkServer:
+    image: zookeeper
+    restart: always
+    expose:
+      - "2181"
+
+  bk1:
+    build:
+      context: .
+      dockerfile: Dockerfile-kafka
+    hostname: bk1
+    image: kafka
+    environment:
+      - BROKER_ID=1
+      - LISTENER_PORT=9092
+      - HOSTNAME=bk1
+    ports:
+      - 9092:9092
+    links:
+      - zkServer
+
+  bk2:
+    environment:
+      - BROKER_ID=2
+      - LISTENER_PORT=9093
+      - HOSTNAME=bk2
+    hostname: bk2
+    image: kafka
+    ports:
+      - 9093:9093
+    links:
+      - zkServer
+
+  bk3:
+    environment:
+      - BROKER_ID=3
+      - LISTENER_PORT=9095
+      - HOSTNAME=bk3
+    hostname: bk3
+    image: kafka
+    ports:
+      - 9095:9095
+    links:
+      - zkServer
+
+
