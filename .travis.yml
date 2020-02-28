@@ -4,6 +4,5 @@ sudo: false
 jdk:
   - openjdk11
 
-
-after_success:
+script:
   - mvn clean test jacoco:report coveralls:report
