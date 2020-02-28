@@ -2,6 +2,7 @@ package org.alterbg.musala.aq.components;
 
 import org.alterbg.musala.aq.bean.AQLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,9 @@ public class AQDataPublisher {
   @Autowired
   public AQDataPublisher(KafkaTemplate<Integer, AQLog> kafkaTemplate) {
     this.kafkaTemplate = kafkaTemplate;
-    this.kafkaTemplate.setDefaultTopic("AQ");
   }
 
+  @EventListener
   public void pushNewAQLog(AQLog aqLog) {
     kafkaTemplate.sendDefault(aqLog);
   }
