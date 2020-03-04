@@ -4,15 +4,15 @@ import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
+import org.alterbg.musala.aq.PublisherTestConfig;
 import org.alterbg.musala.aq.bean.AQLog;
 import org.alterbg.musala.aq.bean.GLocation;
 import org.alterbg.musala.aq.bean.MeasureUnit;
 import org.alterbg.musala.aq.bean.Particle;
 import org.alterbg.musala.aq.components.publisher.AQDataPublisher;
-import org.alterbg.musala.aq.PublisherTestConfig;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -63,14 +63,14 @@ public class PublisherTest {
     //WHEN
     publisher.pushNewAQLog(aqLog);
     //THEN
-    assertThatLogReceivedHasValue(aqLog);
+    assertThatLogsReceivedContainsValue(aqLog);
   }
 
-  private void assertThatLogReceivedHasValue(AQLog expectedLog) {
-    ConsumerRecord<Integer, AQLog> singleRecord = KafkaTestUtils
-        .getSingleRecord(consumer, TEST_TOPIC);
-    assertThat(singleRecord).isNotNull();
-    assertThat(singleRecord.value()).isEqualTo(expectedLog);
+  private void assertThatLogsReceivedContainsValue(AQLog expectedLog) {
+    ConsumerRecords<Integer, AQLog> records = KafkaTestUtils
+        .getRecords(consumer);
+    assertThat(records.records(TEST_TOPIC))
+    .anyMatch(aQLogConsumerRecord -> aQLogConsumerRecord.value().equals(expectedLog));
   }
 
   private Consumer<Integer, AQLog> configureConsumer() {
