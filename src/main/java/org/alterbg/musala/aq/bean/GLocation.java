@@ -3,7 +3,6 @@ package org.alterbg.musala.aq.bean;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Objects;
 
 public class GLocation {
 
@@ -30,10 +29,5 @@ public class GLocation {
     return (gLocation instanceof GLocation)
         && Double.compare(((GLocation) gLocation).latitude, latitude) == 0
         && Double.compare(((GLocation) gLocation).longitude, longitude) == 0;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(latitude, longitude);
   }
 }
