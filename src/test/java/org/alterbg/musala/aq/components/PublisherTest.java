@@ -4,11 +4,12 @@ import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
-import org.alterbg.musala.aq.AQCollectorApplication;
 import org.alterbg.musala.aq.bean.AQLog;
 import org.alterbg.musala.aq.bean.GLocation;
 import org.alterbg.musala.aq.bean.MeasureUnit;
 import org.alterbg.musala.aq.bean.Particle;
+import org.alterbg.musala.aq.components.publisher.AQDataPublisher;
+import org.alterbg.musala.aq.PublisherTestConfig;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -27,7 +28,7 @@ import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
-@SpringBootTest(classes = {AQCollectorApplication.class})
+@SpringBootTest(classes = {PublisherTestConfig.class})
 @EmbeddedKafka(topics = {PublisherTest.TEST_TOPIC}, ports = 9093)
 public class PublisherTest {
 
