@@ -1,4 +1,4 @@
-package org.alterbg.musala.aq.components;
+package org.alterbg.musala.aq.components.publisher;
 
 import org.alterbg.musala.aq.bean.AQLog;
 import org.springframework.beans.factory.annotation.Autowired;
