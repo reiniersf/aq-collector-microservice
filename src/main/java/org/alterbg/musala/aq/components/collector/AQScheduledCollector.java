@@ -1,4 +1,4 @@
-package org.alterbg.musala.aq.components;
+package org.alterbg.musala.aq.components.collector;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.concurrent.atomic.AtomicLong;
