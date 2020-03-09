@@ -65,9 +65,9 @@ public class PublisherTest {
     //GIVEN
     AQILog AQILog = new AQILog(new GLocation(-23.8351, 151.254), 20,
         pm10, new Measures(Set.of(
-            newMeasure(co, aqi, 6.7),
-            newMeasure(pm10, ppm, 6.7),
-        newMeasure(no2, µgm3,7.2))));
+        newMeasure(co, aqi, 6.7),
+        newMeasure(pm10, ppm, 6.7),
+        newMeasure(no2, µgm3, 7.2))));
     //WHEN
     publisher.pushNewAQLog(AQILog);
     //THEN
