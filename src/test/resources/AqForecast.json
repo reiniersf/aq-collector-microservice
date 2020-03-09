@@ -1,0 +1,60 @@
+{
+  "status": "ok",
+  "data": {
+    "aqi": 18,
+    "idx": 8088,
+    "attributions": [
+      {
+        "url": "https://www.sofia.bg/components-environment-air",
+        "name": "Sofia Municipality, National Automated control air quality (Столична Община, Национална автоматизирана система за контрол качеството на атмосферния въздух)"
+      },
+      {
+        "url": "https://waqi.info/",
+        "name": "World Air Quality Index Project"
+      }
+    ],
+    "city": {
+      "geo": [
+        42.7325,
+        23.298611
+      ],
+      "name": "Nadezhda, Sofia, Bulgaria (Нaдeждa, Столична)",
+      "url": "https://aqicn.org/city/bulgaria/sofia/nadezhda"
+    },
+    "dominentpol": "pm10",
+    "iaqi": {
+      "h": {
+        "v": 72.7
+      },
+      "no2": {
+        "v": 3.9
+      },
+      "o3": {
+        "v": 9.9
+      },
+      "p": {
+        "v": 1003.1
+      },
+      "pm10": {
+        "v": 18
+      },
+      "t": {
+        "v": 11.5
+      },
+      "w": {
+        "v": 4.5
+      },
+      "wg": {
+        "v": 8.4
+      }
+    },
+    "time": {
+      "s": "2020-03-04 17:00:00",
+      "tz": "+02:00",
+      "v": 1583341200
+    },
+    "debug": {
+      "sync": "2020-03-05T00:54:28+09:00"
+    }
+  }
+}
