@@ -16,6 +16,10 @@ public class GLocation {
     this.longitude = longitude;
   }
 
+  public static GLocation GLocation(double [] geo){
+    return new GLocation(geo[0], geo[1]);
+  }
+
   public double getLatitude() {
     return latitude;
   }
