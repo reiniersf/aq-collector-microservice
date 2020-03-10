@@ -15,7 +15,6 @@ import java.util.Set;
 import org.alterbg.musala.aq.PublisherTestConfig;
 import org.alterbg.musala.aq.bean.AQILog;
 import org.alterbg.musala.aq.bean.GLocation;
-import org.alterbg.musala.aq.bean.MeasureUnit;
 import org.alterbg.musala.aq.bean.Measures;
 import org.alterbg.musala.aq.components.publisher.AQDataPublisher;
 import org.apache.kafka.clients.consumer.Consumer;
