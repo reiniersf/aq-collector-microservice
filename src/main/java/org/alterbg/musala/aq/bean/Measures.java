@@ -3,7 +3,6 @@ package org.alterbg.musala.aq.bean;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Measures {
@@ -15,16 +14,8 @@ public class Measures {
     this.measures = measures;
   }
 
-  public static Measures newMeasures(){
-    return new Measures(new HashSet<>());
-  }
-
-  public void include(Measures measuresA) {
-    measures.addAll(measuresA.measures);
-  }
-
-  public void record(Measure aMeasure) {
-    measures.add(aMeasure);
+  public static Measures newMeasures(Set<Measure> particleMeasures){
+    return new Measures(particleMeasures);
   }
 
   public Set<Measure> getMeasures() {

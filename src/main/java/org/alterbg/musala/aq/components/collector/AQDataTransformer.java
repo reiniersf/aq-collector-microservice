@@ -1,9 +1,11 @@
 package org.alterbg.musala.aq.components.collector;
 
 import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toSet;
 import static org.alterbg.musala.aq.bean.GLocation.GLocation;
 import static org.alterbg.musala.aq.bean.Measure.newMeasure;
 import static org.alterbg.musala.aq.bean.MeasureUnit.aqi;
+import static org.alterbg.musala.aq.bean.Measures.newMeasures;
 import static org.alterbg.musala.aq.bean.Particle.no2;
 import static org.alterbg.musala.aq.bean.Particle.o3;
 import static org.alterbg.musala.aq.bean.Particle.pm10;
@@ -11,9 +13,7 @@ import static org.alterbg.musala.aq.bean.Particle.valueOf;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import java.util.function.BinaryOperator;
 import java.util.function.Function;
-import java.util.stream.Collector;
 import org.alterbg.musala.aq.bean.AQILog;
 import org.alterbg.musala.aq.bean.GLocation;
 import org.alterbg.musala.aq.bean.Measure;
@@ -35,10 +35,13 @@ public class AQDataTransformer {
 
     return new AQILog(gLocation, generalAQIndex, dominantPollution, particlesMeasures);
   }
+
   private Function<JsonNode, Measures> asParticleMeasuresFor(Particle... particles) {
-    return particleIndexes -> stream(particles)
-        .map(particle -> anMeasure(particle, aqi, particleIndexes.at("/" + particle + "/v").asDouble()))
-        .collect(asMeasures());
+    return particleIndexes -> newMeasures(
+        stream(particles)
+            .map(particle -> anMeasure(particle, aqi,
+                particleIndexes.at("/" + particle + "/v").asDouble()))
+            .collect(toSet()));
   }
 
   private Measure anMeasure(Particle particle, MeasureUnit unit,
@@ -59,10 +62,5 @@ public class AQDataTransformer {
   private <T> T extractFrom(JsonNode source, String requestedPath,
       Function<JsonNode, T> transformer) {
     return transformer.apply(source.at(requestedPath));
-  }
-
-  private static Collector<Measure, Measures, Measures> asMeasures() {
-    return Collector.of(Measures::newMeasures, Measures::record,
-        (measures, measures2) -> measures2);
   }
 }
