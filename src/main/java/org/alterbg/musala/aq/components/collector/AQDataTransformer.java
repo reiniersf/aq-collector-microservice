@@ -36,17 +36,8 @@ public class AQDataTransformer {
     return new AQILog(gLocation, generalAQIndex, dominantPollution, particlesMeasures);
   }
 
-  private Function<JsonNode, Measures> asParticleMeasuresFor(Particle... particles) {
-    return particleIndexes -> newMeasures(
-        stream(particles)
-            .map(particle -> anMeasure(particle, aqi,
-                particleIndexes.at("/" + particle + "/v").asDouble()))
-            .collect(toSet()));
-  }
-
-  private Measure anMeasure(Particle particle, MeasureUnit unit,
-      double index) {
-    return newMeasure(particle, unit, index);
+  private <T> T extractFrom(JsonNode source, String path, Function<JsonNode, T> transformer) {
+    return transformer.apply(source.at(path));
   }
 
   private Function<JsonNode, GLocation> asGLocation = coordinatesNode -> {
@@ -59,8 +50,15 @@ public class AQDataTransformer {
 
   private Function<JsonNode, Particle> asParticle = particleNode -> valueOf(particleNode.asText());
 
-  private <T> T extractFrom(JsonNode source, String requestedPath,
-      Function<JsonNode, T> transformer) {
-    return transformer.apply(source.at(requestedPath));
+  private Function<JsonNode, Measures> asParticleMeasuresFor(Particle... particles) {
+    return particleIndexes -> newMeasures(
+        stream(particles)
+            .map(particle -> aMeasureFor(particle, aqi,
+                particleIndexes.at("/" + particle + "/v").asDouble()))
+            .collect(toSet()));
+  }
+
+  private Measure aMeasureFor(Particle particle, MeasureUnit unit, double index) {
+    return newMeasure(particle, unit, index);
   }
 }
