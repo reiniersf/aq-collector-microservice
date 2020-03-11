@@ -32,18 +32,18 @@ public class AQILog {
     return dominantPollution;
   }
 
-  @Override
-  public boolean equals(Object aqLog) {
-    return (aqLog instanceof AQILog)
-        && Objects.equals(location, ((AQILog) aqLog).location)
-        && dominantPollution == ((AQILog) aqLog).dominantPollution;
-  }
-
   public Integer getGeneralAQIndex() {
     return generalAQIndex;
   }
 
   public Measures getParticlesMeasures() {
     return particlesMeasures;
+  }
+
+  @Override
+  public boolean equals(Object aqLog) {
+    return (aqLog instanceof AQILog)
+        && Objects.equals(location, ((AQILog) aqLog).location)
+        && dominantPollution == ((AQILog) aqLog).dominantPollution;
   }
 }
