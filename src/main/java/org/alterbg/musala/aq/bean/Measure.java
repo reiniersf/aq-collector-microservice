@@ -30,6 +30,10 @@ public class Measure {
     return index;
   }
 
+  public MeasureUnit getUnit() {
+    return unit;
+  }
+
   @Override
   public String toString() {
     return "Measure{" +
