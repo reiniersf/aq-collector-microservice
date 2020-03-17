@@ -46,4 +46,11 @@ public class AQILog {
         && Objects.equals(location, ((AQILog) aqLog).location)
         && dominantPollution == ((AQILog) aqLog).dominantPollution;
   }
+
+  @Override
+  public String toString() {
+    return "AQILog{\n location=" + location + ",\n generalAQIndex=" + generalAQIndex
+        + ",\n dominantPollution=" + dominantPollution + ",\n particlesMeasures="
+        + particlesMeasures + '}';
+  }
 }
