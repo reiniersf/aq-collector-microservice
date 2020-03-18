@@ -10,6 +10,6 @@ public class AQDataApi {
 
   @GetMapping
   public String status(){
-    return "Hello from AQApplication";
+    return "Hello from AQIApplication";
   }
 }
