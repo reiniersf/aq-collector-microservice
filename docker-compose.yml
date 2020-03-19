@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   zkServer:
     image: zookeeper
@@ -7,11 +7,8 @@ services:
       - "2181"
 
   bk1:
-    build:
-      context: .
-      dockerfile: Dockerfile-kafka
     hostname: bk1
-    image: kafka
+    image: reitosan0088/kafka
     environment:
       - BROKER_ID=1
       - LISTENER_PORT=9092
@@ -22,34 +19,31 @@ services:
       - zkServer
 
   bk2:
+    hostname: bk2
+    image: reitosan0088/kafka
     environment:
       - BROKER_ID=2
       - LISTENER_PORT=9093
       - HOSTNAME=bk2
-    hostname: bk2
-    image: kafka
     ports:
       - 9093:9093
     links:
       - zkServer
 
   bk3:
+    hostname: bk3
+    image: reitosan0088/kafka
     environment:
       - BROKER_ID=3
       - LISTENER_PORT=9095
       - HOSTNAME=bk3
-    hostname: bk3
-    image: kafka
     ports:
       - 9095:9095
     links:
       - zkServer
 
   collector:
-    build:
-      context: .
-      dockerfile: Dockerfile-app
-    image: aqi-collector
+    image: reitosan0088/aqi-collector:1.0.0
     ports:
     - 8091:8091
     links:
