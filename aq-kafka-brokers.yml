@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-bkrs
+  labels:
+    run: kafka-bkrs
+spec:
+  ports:
+    - port: 9092
+      targetPort: 9092
+      name: pbk1
+      protocol: TCP
+    - port: 9093
+      name: pbk2
+      targetPort: 9093
+      protocol: TCP
+    - port: 9095
+      name: pbk3
+      targetPort: 9095
+      protocol: TCP
+  selector:
+    run: kafka-bkrs
+---
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: kafka-bkrs
+ spec:
+   replicas: 2
+   selector:
+     matchLabels:
+       app: kafka-bkrs
+   template:
+     metadata:
+       labels:
+         app: kafka-bkrs
+     spec:
+       hostname: bkr-cluster
+       containers:
+         - name: bk1
+           image: kafka:v1.0
+           env:
+             - name: BROKER_ID
+               value: '1'
+             - name: LISTENER_PORT
+               value: '9092'
+             - name: HOSTNAME
+               value: bkr-cluster
+           imagePullPolicy: Never
+           ports:
+             - containerPort: 9092
+         - name: bk2
+           image: kafka:v1.0
+           env:
+             - name: BROKER_ID
+               value: '2'
+             - name: LISTENER_PORT
+               value: '9093'
+             - name: HOSTNAME
+               value: bkr-cluster
+           imagePullPolicy: Never
+           ports:
+             - containerPort: 9093
+         - name: bk3
+           image: kafka:v1.0
+           env:
+             - name: BROKER_ID
+               value: '3'
+             - name: LISTENER_PORT
+               value: '9095'
+             - name: HOSTNAME
+               value: bkr-cluster
+           imagePullPolicy: Never
+           ports:
+             - containerPort: 9095
