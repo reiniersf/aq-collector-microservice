@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   zkServer:
+    hostname: zk-server
     image: zookeeper
     restart: always
     expose:
@@ -8,7 +9,7 @@ services:
 
   bk1:
     hostname: bk1
-    image: reitosan0088/kafka
+    image: kafka:v1.0
     environment:
       - BROKER_ID=1
       - LISTENER_PORT=9092
@@ -16,11 +17,11 @@ services:
     ports:
       - 9092:9092
     links:
-      - zkServer
+      - "zkServer:zk-server"
 
   bk2:
     hostname: bk2
-    image: reitosan0088/kafka
+    image: kafka:v1.0
     environment:
       - BROKER_ID=2
       - LISTENER_PORT=9093
@@ -28,11 +29,11 @@ services:
     ports:
       - 9093:9093
     links:
-      - zkServer
+      - "zkServer:zk-server"
 
   bk3:
     hostname: bk3
-    image: reitosan0088/kafka
+    image: kafka:v1.0
     environment:
       - BROKER_ID=3
       - LISTENER_PORT=9095
@@ -40,14 +41,14 @@ services:
     ports:
       - 9095:9095
     links:
-      - zkServer
+      - "zkServer:zk-server"
 
   collector:
     image: reitosan0088/aqi-collector:1.0.0
     ports:
     - 8091:8091
     links:
-      - zkServer
+      - "zkServer:zk-server"
       - bk1
       - bk2
       - bk3
