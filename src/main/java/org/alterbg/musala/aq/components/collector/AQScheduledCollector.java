@@ -2,6 +2,8 @@ package org.alterbg.musala.aq.components.collector;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.concurrent.atomic.AtomicLong;
+import org.alterbg.musala.aq.api.DataLog;
+import org.alterbg.musala.aq.api.DataTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +15,14 @@ import org.springframework.web.client.RestTemplate;
 public class AQScheduledCollector {
 
   private final RestTemplate client;
-  private final AQDataTransformer aqDataTransformer;
+  private final DataTransformer<DataLog> aqDataTransformer;
   private final ApplicationEventPublisher publisher;
   private final AtomicLong retrievals = new AtomicLong(0);
 
   @Autowired
   public AQScheduledCollector(
       RestTemplate client,
-      AQDataTransformer aqDataTransformer,
+      DataTransformer<DataLog> aqDataTransformer,
       ApplicationEventPublisher publisher) {
 
     this.client = client;
@@ -35,7 +37,7 @@ public class AQScheduledCollector {
         JsonNode.class);
 
     retrievals.incrementAndGet();
-    publisher.publishEvent(aqDataTransformer.toAQLog(entity.getBody()));
+    publisher.publishEvent(aqDataTransformer.toDataLog(entity.getBody()));
   }
 
   public AtomicLong retrievals() {

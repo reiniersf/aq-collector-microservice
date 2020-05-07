@@ -14,6 +14,8 @@ import static org.alterbg.musala.aq.bean.Particle.valueOf;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import java.util.function.Function;
+import org.alterbg.musala.aq.api.DataLog;
+import org.alterbg.musala.aq.api.DataTransformer;
 import org.alterbg.musala.aq.bean.AQILog;
 import org.alterbg.musala.aq.bean.GLocation;
 import org.alterbg.musala.aq.bean.Measure;
@@ -23,9 +25,9 @@ import org.alterbg.musala.aq.bean.Particle;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AQDataTransformer {
+public class AQDataTransformer implements DataTransformer<DataLog> {
 
-  public AQILog toAQLog(JsonNode aqForecast) {
+  public AQILog toDataLog(JsonNode aqForecast) {
 
     Integer generalAQIndex = extractFrom(aqForecast, "/data/aqi", JsonNode::asInt);
     GLocation gLocation = extractFrom(aqForecast, "/data/city/geo", asGLocation);
@@ -40,7 +42,7 @@ public class AQDataTransformer {
     return transformer.apply(source.at(path));
   }
 
-  private Function<JsonNode, GLocation> asGLocation = coordinatesNode -> {
+  private final Function<JsonNode, GLocation> asGLocation = coordinatesNode -> {
     ArrayNode coordinatesArrayNode = (ArrayNode) coordinatesNode;
     return GLocation(new double[]{
         coordinatesArrayNode.get(0).asDouble(),
@@ -48,7 +50,7 @@ public class AQDataTransformer {
     });
   };
 
-  private Function<JsonNode, Particle> asParticle = particleNode -> valueOf(particleNode.asText());
+  private final Function<JsonNode, Particle> asParticle = particleNode -> valueOf(particleNode.asText());
 
   private Function<JsonNode, Measures> asParticleMeasuresFor(Particle... particles) {
     return particleIndexes -> newMeasures(

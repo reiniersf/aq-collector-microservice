@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
+import org.alterbg.musala.aq.api.DataLog;
 
-public class AQILog {
+public class AQILog implements DataLog {
 
   private GLocation location;
   private final Integer generalAQIndex;
