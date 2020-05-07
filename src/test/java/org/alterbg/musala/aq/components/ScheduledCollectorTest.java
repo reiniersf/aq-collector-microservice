@@ -10,12 +10,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 @SpringBootTest(classes = {ScheduledTestConfig.class})
 public class ScheduledCollectorTest {
 
+  private final AQScheduledCollector collector;
+
   @Autowired
-  private AQScheduledCollector collector;
+  public ScheduledCollectorTest(
+      AQScheduledCollector collector) {
+    this.collector = collector;
+  }
 
   @Test
   @DisplayName("Collector creation")

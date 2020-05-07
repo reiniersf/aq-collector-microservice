@@ -21,7 +21,7 @@ public class TransformerTest {
     JsonNode forecast = new ObjectMapper().readTree(
         requireNonNull(this.getClass().getClassLoader().getResource("AqForecast.json")));
 
-    AQILog aqiLog = transformer.toAQLog(forecast);
+    AQILog aqiLog = transformer.toDataLog(forecast);
 
     assertThat(aqiLog).isNotNull();
   }

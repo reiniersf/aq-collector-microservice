@@ -12,11 +12,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 import java.util.Set;
-import org.alterbg.musala.aq.PublisherTestConfig;
+import org.alterbg.musala.aq.api.DataLog;
+import org.alterbg.musala.aq.api.DataPublisher;
 import org.alterbg.musala.aq.bean.AQILog;
 import org.alterbg.musala.aq.bean.GLocation;
 import org.alterbg.musala.aq.bean.Measures;
-import org.alterbg.musala.aq.components.publisher.AQDataPublisher;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -25,7 +25,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -33,7 +35,7 @@ import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
-@SpringBootTest(classes = {PublisherTestConfig.class})
+@SpringBootTest
 @EmbeddedKafka(topics = {PublisherTest.TEST_TOPIC}, ports = 9093)
 public class PublisherTest {
 
@@ -43,7 +45,10 @@ public class PublisherTest {
   private EmbeddedKafkaBroker embeddedKafkaBroker;
 
   @Autowired
-  private AQDataPublisher publisher;
+  private DataPublisher<DataLog> publisher;
+
+  @MockBean
+  private KafkaTemplate<Integer, AQILog> mockTransformer;
 
   private Consumer<Integer, AQILog> consumer;
 
@@ -68,7 +73,7 @@ public class PublisherTest {
         newMeasure(pm10, ppm, 6.7),
         newMeasure(no2, µgm3, 7.2))));
     //WHEN
-    publisher.pushNewAQLog(AQILog);
+    publisher.pushDataLog(AQILog);
     //THEN
     assertThatLogsReceivedContainsValue(AQILog);
   }
