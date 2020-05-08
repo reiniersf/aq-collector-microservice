@@ -47,9 +47,6 @@ public class PublisherTest {
   @Autowired
   private DataPublisher<DataLog> publisher;
 
-  @MockBean
-  private KafkaTemplate<Integer, AQILog> mockTransformer;
-
   private Consumer<Integer, AQILog> consumer;
 
   @BeforeEach
