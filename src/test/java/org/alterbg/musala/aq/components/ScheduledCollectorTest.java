@@ -34,7 +34,7 @@ public class ScheduledCollectorTest {
   @DisplayName("Collector retrieval")
   void shouldRetrieveForecastEachSecond() {
     await()
-        .atLeast(Duration.ofSeconds(3))
+        .atLeast(Duration.ofSeconds(6))
         .untilAsserted(() -> assertThat(collector.retrievals()).hasValueGreaterThan(5));
   }
 }
